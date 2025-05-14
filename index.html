@@ -4,8 +4,169 @@
   <meta charset="UTF-8">
   <title>Fuck you, Jose</title>
   <meta name="description" content="Fuck you, Jose">
+  <style>
+    body {
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    
+    /* Glitch wrapper container */
+    .glitch-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    /* Main glitch effect */
+    .glitch {
+      position: relative;
+      font-size: 80px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 5px;
+      z-index: 1;
+      text-transform: uppercase;
+    }
+    
+    /* Creating the before/after pseudo elements for glitch effect */
+    .glitch:before,
+    .glitch:after {
+      display: block;
+      content: attr(data-glitch);
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.8;
+    }
+    
+    /* Cyan color glitch */
+    .glitch:before {
+      animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+      color: #0ff;
+      z-index: -1;
+    }
+    
+    /* Magenta color glitch */
+    .glitch:after {
+      animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+      color: #f0f;
+      z-index: -2;
+    }
+    
+    /* Shake animation on hover */
+    .glitch:hover {
+      animation-name: shake;
+      animation-duration: 0.5s;
+      animation-iteration-count: infinite;
+    }
+    
+    /* Keyframes for the glitch color effect */
+    @keyframes glitch-color {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 3px); }
+      40% { transform: translate(-3px, -3px); }
+      60% { transform: translate(3px, 3px); }
+      80% { transform: translate(3px, -3px); }
+      to { transform: translate(0); }
+    }
+    
+    /* Keyframes for the shake effect */
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+    
+    /* Confetti styles */
+    .confetti {
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      left: 50%;
+      animation: confetti 5s ease-in-out -2s infinite;
+      transform-origin: left top;
+    }
+    
+    /* Multiple confetti pieces with different colors and animations */
+    .confetti:nth-child(1) { background-color: #f2d74e; left: 10%; animation-delay: 0; }
+    .confetti:nth-child(2) { background-color: #95c3de; left: 20%; animation-delay: -5s; }
+    .confetti:nth-child(3) { background-color: #ff9a91; left: 30%; animation-delay: -3s; }
+    .confetti:nth-child(4) { background-color: #f2d74e; left: 40%; animation-delay: -2.5s; }
+    .confetti:nth-child(5) { background-color: #95c3de; left: 50%; animation-delay: -4s; }
+    .confetti:nth-child(6) { background-color: #ff9a91; left: 60%; animation-delay: -6s; }
+    .confetti:nth-child(7) { background-color: #f2d74e; left: 70%; animation-delay: -1.5s; }
+    .confetti:nth-child(8) { background-color: #95c3de; left: 80%; animation-delay: -2s; }
+    .confetti:nth-child(9) { background-color: #ff9a91; left: 90%; animation-delay: -3.5s; }
+    .confetti:nth-child(10) { background-color: #f2d74e; left: 100%; animation-delay: -2.5s; }
+    
+    /* Confetti falling animation */
+    @keyframes confetti {
+      0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }
+      25% { transform: rotateZ(5deg) rotateY(360deg) translate(-5vw,20vh); }
+      50% { transform: rotateZ(15deg) rotateY(720deg) translate(5vw,60vh); }
+      75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
+      100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,110vh); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Fuck you, Jose</h1>
+  <!-- Container for confetti -->
+  <div id="confetti-container">
+    <!-- 10 confetti elements -->
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    
+    <!-- Glitch text wrapper -->
+    <div class="glitch-wrapper">
+      <div class="glitch" data-glitch="Fuck you, Jose">Fuck you, Jose</div>
+    </div>
+  </div>
+  
+  <script>
+    // Add explosive burst effect when clicked
+    document.querySelector('.glitch').addEventListener('click', function() {
+      // Create more confetti on click
+      let container = document.getElementById('confetti-container');
+      for (let i = 0; i < 30; i++) {
+        let confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = ['#f2d74e', '#95c3de', '#ff9a91'][Math.floor(Math.random() * 3)];
+        confetti.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(confetti);
+        
+        // Remove extra confetti after animation
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    });
+  </script>
 </body>
 </html>
